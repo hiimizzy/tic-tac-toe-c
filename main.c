@@ -1,7 +1,8 @@
 #include<stdio.h>
-#define jogadorX'x'
-#define jogador0'0'
+#define jogadorX 'x'
+#define jogador0 '0'
 
+#define caracterb '_'
 #define qlinha 3
 #define qcoluna 3
 int main(int argc, char const *argv[]){
@@ -11,48 +12,60 @@ int main(int argc, char const *argv[]){
 [1]--4----5----6----
 [2]--7----8----9----
 */ 
+
+/*  1        2        3       -1
+    0,0     0,1     0,2
+
+    4       5         6           
+    1,0    1,1      0,2        -4
+
+    7       8         9
+    2,0    2,1      2,2        -7
+
+*/
+
     char tabuleiro[qlinha][qcoluna];
     int coluna;
     int linha;
     int posicao;
+
     for(linha = 0; linha < qlinha; linha +=1)
         for(coluna = 0 ; coluna < qcoluna; coluna +=1)
-        tabuleiro[linha][coluna] = '_';
+        tabuleiro[linha][coluna] = 'caracterb';
 
-    printf("Jogador %c sua vez \n");
+
+    while (1){
+
+        printf("Jogador %c sua vez \n");
     scanf("%d",&posicao);
 
-    if(posicao = 1)
-        tabuleiro[0][0] = jogadorX;
 
-    else if(posicao = 2)
-        tabuleiro[0][1] = jogadorX;
+    if(! (posicao > 1 && posicao < 9)){
+        printf("\nPosição inválida, digite novamente!\n");
 
-    else if(posicao = 3)
-        tabuleiro[0][2] = jogadorX;
+        continue;
+    }
 
-    else if(posicao = 4)
-        tabuleiro[1][0] = jogadorX;
+    if(posicao > 1 && posicao < 3){
+        tabuleiro[0][posicao - 1] = jogadorX;
+    }
 
-    else if(posicao = 5)
-        tabuleiro[1][1] = jogadorX;
+    else if(posicao > 4 && posicao < 6){
+        tabuleiro[1][posicao - 4] = jogadorX;
+    }
 
-    else if(posicao = 6)
-        tabuleiro[1][2] = jogadorX; 
-
-    else if(posicao = 7)
-        tabuleiro[2][0] = jogadorX; 
-
-    else if(posicao = 8)
-        tabuleiro[2][1] = jogadorX; 
-
-    else if(posicao = 9)
-        tabuleiro[2][2] = jogadorX; 
+    else if(posicao > 7 && posicao < 9){
+        tabuleiro[2][posicao - 7] = jogadorX;
+    }
 
     for(linha = 0 ; linha < qlinha; linha += 1){
         for(coluna = 0; coluna < qcoluna; coluna += 1)
         printf("%c", tabuleiro[linha][coluna]);
 
     }
+
+    }
+    
+    
         
 }
