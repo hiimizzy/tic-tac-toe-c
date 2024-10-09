@@ -1,71 +1,97 @@
 #include<stdio.h>
-#define jogadorX 'x'
-#define jogador0 '0'
+#include<stdio.h>
 
-#define caracterb '_'
-#define qlinha 3
-#define qcoluna 3
-int main(int argc, char const *argv[]){
-/*
-    [0]  [1]  [2]  
-[0]--1----2----3----
-[1]--4----5----6----
-[2]--7----8----9----
-*/ 
+char jogo[3][3]; //representa tabuleiro 
+char jogador1[50],jogador2[50]; //armazenar os nomes dos jogadores, suporta 50 caracteres
 
-/*  1        2        3       -1
-    0,0     0,1     0,2
-
-    4       5         6           
-    1,0    1,1      0,2        -4
-
-    7       8         9
-    2,0    2,1      2,2        -7
-
-*/
-
-    char tabuleiro[qlinha][qcoluna];
-    int coluna;
-    int linha;
-    int posicao;
-
-    for(linha = 0; linha < qlinha; linha +=1)
-        for(coluna = 0 ; coluna < qcoluna; coluna +=1)
-        tabuleiro[linha][coluna] = 'caracterb';
-
-
-    while (1){
-
-        printf("Jogador %c sua vez \n");
-    scanf("%d",&posicao);
-
-
-    if(! (posicao > 1 && posicao < 9)){
-        printf("\nPosição inválida, digite novamente!\n");
-
-        continue;
+void iniciarMatriz(){
+    int i,j; //variaveis contadoras
+    for(i=0; i<3; i++){
+        for(i=0; i<3; i++){
+            jogo[i][j] = 'a'; //indicar que a posiçao está vazia
+        }
     }
-
-    if(posicao > 1 && posicao < 3){
-        tabuleiro[0][posicao - 1] = jogadorX;
-    }
-
-    else if(posicao > 4 && posicao < 6){
-        tabuleiro[1][posicao - 4] = jogadorX;
-    }
-
-    else if(posicao > 7 && posicao < 9){
-        tabuleiro[2][posicao - 7] = jogadorX;
-    }
-
-    for(linha = 0 ; linha < qlinha; linha += 1){
-        for(coluna = 0; coluna < qcoluna; coluna += 1)
-        printf("%c", tabuleiro[linha][coluna]);
-
-    }
-
-    }
-    
-    
-        
 }
+
+//1ºfunção 
+//vai mostrar se é x ou 0
+int eValid(char letra){
+    if(letra == 'x' || letra == '0'){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+       
+}
+
+//2º função
+int coordenadaEhValid(int l, int c){
+    if(l >= 0 && l < 3 && c>=0 && c<3){
+        return 1;
+    }
+    return 0;
+
+}
+
+//3º função
+int posicEhVazia(int l,int c){
+    if(jogo[l][c] != 'x' && jogo[l][c] != '0'){
+        return 1;
+    }
+    return 0;
+}
+
+//4 funções para verificar a vitória do jogador
+//percorrer todas as linhas, verificar em cada linha se a posição possui x ou 0.
+int ganhouLinha(){
+    int i,j,igual=1;
+    for(i=0; i<3; i++){
+        for(j=0; j<2; j++){
+            if(eValid(jogo[i][j]) && jogo[i][j] == jogo[i][j+1]){
+                igual++;
+            }
+            if(igual == 3)
+                return 1;
+            igual = 1;
+        }
+        return 0; //ninguem venceu pelas linhas
+}
+}
+//verificar se ganhou por coluna
+int ganhouColuna(){
+    int i,j,igual=1;
+    for(i=0; i<3; i++){
+        if(eValid(jogo[j][i]) && jogo[j+1][i]){
+            igual++;
+        }
+        if(igual == 3)
+        return 1;
+        igual=1;
+    }
+    return 0; //ninguem ganhou 
+}
+
+int ganhoudiagPrincipal(){
+    int i, igual=1;//uma var para percorrer a matriz 
+    for(i=0; i<2; i++){
+        if(eValiid(jogo[i][i]) && jogo[i][i] == jogo[i+1][i+1]){
+            igual++;
+        }
+        if(igual == 3){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+}
+
+int ganhoudiag2(){
+    int i,igual=1;
+    for(i=0; i<3; i++){
+        if(eValid(jogo[][]) && jogo[][] == jogo[][])
+    }
+}
+
+
+
